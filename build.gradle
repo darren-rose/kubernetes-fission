@@ -1,0 +1,45 @@
+
+
+task fissionEnv(type: Exec) {
+    group 'fission'
+    description 'fission env create nodejs'
+
+    commandLine "fission", "env", "create", "--name", "nodejs", "--image", "fission/node-env:0.7.0"
+}
+
+task fissionFn(type: Exec) {
+    group 'fission'
+    description 'fission function create hello'
+
+    commandLine "fission", "fn", "create", "--name", "hello", "--code", "src/main/js/hello.js", "--env", "nodejs"
+}
+
+task fissionTest(type: Exec) {
+    group 'fission'
+    description 'fission function test hello'
+
+    commandLine "fission", "fn", "test", "--name", "hello"
+}
+
+task fissionRoute(type: Exec) {
+    group 'fission'
+    description 'fission route create /hello'
+
+    commandLine "fission", "route", "create", "--function", "hello", "--url", "/hello"
+}
+
+task fissionRouteInfo(type: Exec) {
+    group 'fission'
+    description 'fission router info'
+
+    commandLine "kubectl", "-n", "fission", "get", "service", "router"
+}
+
+task fissionRouteTest(type: Exec) {
+    group 'fission'
+    description 'fission router test'
+
+    commandLine "curl", "localhost:80/hello"
+}
+
+
