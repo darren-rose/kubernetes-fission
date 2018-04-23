@@ -14,6 +14,13 @@ task fissionFn(type: Exec) {
     commandLine "fission", "fn", "create", "--name", "hello", "--code", "src/main/js/hello.js", "--env", "nodejs"
 }
 
+task fissionUpdate(type: Exec) {
+    group 'fission'
+    description 'fission function update hello'
+
+    commandLine "fission", "fn", "update", "--name", "hello", "--code", "src/main/js/hello.js"
+}
+
 task fissionTest(type: Exec) {
     group 'fission'
     description 'fission function test hello'
